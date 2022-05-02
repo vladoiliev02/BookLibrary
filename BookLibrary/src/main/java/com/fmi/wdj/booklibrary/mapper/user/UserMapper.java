@@ -4,6 +4,8 @@ import com.fmi.wdj.booklibrary.dto.user.UserDetailsDto;
 import com.fmi.wdj.booklibrary.dto.user.UserDto;
 import com.fmi.wdj.booklibrary.model.user.User;
 import com.fmi.wdj.booklibrary.model.user.UserDetails;
+import com.fmi.wdj.booklibrary.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +15,7 @@ public class UserMapper {
         UserDto dto = new UserDto();
 
         dto.setUsername(user.getUsername());
-        dto.setUserDetailsDto(toUserDetailsDto(user.getDetails()));
+        dto.setDetails(toUserDetailsDto(user.getDetails()));
 
         return dto;
     }
@@ -34,7 +36,7 @@ public class UserMapper {
         User user = new User();
 
         user.setUsername(userDto.getUsername());
-        user.setDetails(fromUserDetailsDto(userDto.getUserDetailsDto()));
+        user.setDetails(fromUserDetailsDto(userDto.getDetails()));
 
         return user;
     }

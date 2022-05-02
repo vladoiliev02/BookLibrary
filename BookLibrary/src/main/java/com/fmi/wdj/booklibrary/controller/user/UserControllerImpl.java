@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +23,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController("/api/users")
+@RestController
+@RequestMapping("/api/users")
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
@@ -60,16 +63,23 @@ public class UserControllerImpl implements UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto addUser(@RequestBody @Valid UserDto user) {
+        // Add user already exists exception
         User newUser = userService.saveUser(userMapper.fromUserDto(user));
         return userMapper.toUserDto(newUser);
     }
 
     @Override
+    @PutMapping
     public ResponseEntity<UserDto> updateUser(@RequestBody @Valid UserDto user) {
         boolean isUpdate = userService.exists(user.getUsername());
 
         User updatedUser = userMapper.fromUserDto(user);
+        if (isUpdate) {
+            // Set the id for the details, so they get updated accordingly.
+            updatedUser.getDetails().setId(userService.getDetailsForUser(user.getUsername()).getId());
+        }
         userService.saveUser(updatedUser);
+
 
         UserDto result = userMapper.toUserDto(updatedUser);
         return isUpdate ? new ResponseEntity<>(result, HttpStatus.OK)
@@ -77,7 +87,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @DeleteMapping({"/{username}"})
+    @DeleteMapping("/{username}")
     public void deleteUser(@PathVariable String username) {
         userService.removeUser(username);
     }

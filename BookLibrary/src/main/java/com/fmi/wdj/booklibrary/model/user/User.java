@@ -3,12 +3,10 @@ package com.fmi.wdj.booklibrary.model.user;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -26,12 +24,11 @@ public class User {
     @NotEmpty(message = "Username cannot be empty")
     @NotBlank(message = "Username cannot be blank")
     @Column(name = "username", nullable = false, unique = true, length = 20)
-    @Length(min = 6, max = 20, message = "The username should be between 6 and 20 characters long.")
+    @Length(min = 5, max = 20, message = "The username should be between 5 and 20 characters long.")
     private String username;
 
     @NotNull(message = "User details cannot be null")
-    @Column(nullable = false)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id")
     private UserDetails details;
 }
