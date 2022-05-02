@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Get All Books",
+			"name": "Book Get All Books",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -26,7 +26,41 @@
 			"response": []
 		},
 		{
-			"name": "Create Book",
+			"name": "Book Get Book By Criteria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/books?author=krisanka ivanovic&genre=mystery,thriller",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "krisanka ivanovic"
+						},
+						{
+							"key": "title",
+							"value": "hello",
+							"disabled": true
+						},
+						{
+							"key": "genre",
+							"value": "mystery,thriller"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book Create Book",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -54,7 +88,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Book",
+			"name": "Book Update Book",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -82,7 +116,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete Book",
+			"name": "Book Delete Book",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -111,35 +145,136 @@
 			"response": []
 		},
 		{
-			"name": "Get Book By Criteria",
+			"name": "User Get All Users",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/books?author=krisanka ivanovic",
+					"raw": "localhost:8080/api/users",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"api",
-						"books"
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Get User By Username",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/users/user1",
+					"host": [
+						"localhost"
 					],
-					"query": [
-						{
-							"key": "author",
-							"value": "krisanka ivanovic"
-						},
-						{
-							"key": "genre",
-							"value": "g3",
-							"disabled": true
-						},
-						{
-							"key": "title",
-							"value": "hello",
-							"disabled": true
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Get User Details By Username",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/users/details/user1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"details",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user1\",\r\n    \"details\": {\r\n        \"email\": \"user1@gamil.com\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user1\",\r\n    \"details\": {\r\n        \"email\": \"user1@gamil.com\",\r\n        \"firstName\": \"user\",\r\n        \"lastName\": \"first\",\r\n        \"phoneNumber\": \"0885631578\",\r\n        \"country\": \"Bulgaria\",\r\n        \"city\": \"Sofia\",\r\n        \"street\": \"bul. knqz Al. Dondukov 60\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Delete User By Username",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/users/user1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"user1"
 					]
 				}
 			},
