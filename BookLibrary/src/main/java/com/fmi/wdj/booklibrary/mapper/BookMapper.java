@@ -4,7 +4,7 @@ import com.fmi.wdj.booklibrary.dto.BookDto;
 import com.fmi.wdj.booklibrary.model.book.Book;
 import com.fmi.wdj.booklibrary.model.book.BookGenre;
 import com.fmi.wdj.booklibrary.model.book.Genre;
-import com.fmi.wdj.booklibrary.repository.BookGenreRepository;
+import com.fmi.wdj.booklibrary.repository.book.BookGenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
