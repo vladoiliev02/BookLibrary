@@ -14,4 +14,7 @@ public class UserDto {
     @NotBlank(message = "Username cannot be blank")
     @Size(min = 6, max = 20, message = "The username should be between 6 and 20 characters long.")
     private String username;
+
+    @NotNull
+    private UserDetailsDto userDetailsDto;
 }

@@ -1,5 +1,7 @@
 package com.fmi.wdj.booklibrary.model.user;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user_details")
+@Data
 public class UserDetails {
 
     @Id
@@ -25,9 +28,9 @@ public class UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
     @Column(unique = true)
     private String phoneNumber;
