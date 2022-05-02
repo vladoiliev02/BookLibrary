@@ -1,5 +1,6 @@
 package com.fmi.wdj.booklibrary.model.user;
 
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
+@Data
 public class User {
 
     @Id

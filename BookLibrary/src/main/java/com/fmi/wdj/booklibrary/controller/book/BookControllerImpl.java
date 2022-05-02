@@ -3,7 +3,7 @@ package com.fmi.wdj.booklibrary.controller.book;
 import com.fmi.wdj.booklibrary.dto.book.BookDto;
 import com.fmi.wdj.booklibrary.mapper.book.BookMapper;
 import com.fmi.wdj.booklibrary.model.book.Book;
-import com.fmi.wdj.booklibrary.service.BookService;
+import com.fmi.wdj.booklibrary.service.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

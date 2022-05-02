@@ -1,4 +1,4 @@
-package com.fmi.wdj.booklibrary.service;
+package com.fmi.wdj.booklibrary.service.book;
 
 import com.fmi.wdj.booklibrary.model.book.Book;
 import com.fmi.wdj.booklibrary.model.book.Genre;
@@ -41,6 +41,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll();
     }
 
+    // Consider throwing an exception instead of returning null
     @Override
     public Book getBookByISBN(String isbn) {
         return bookRepository.findById(isbn).orElse(null);

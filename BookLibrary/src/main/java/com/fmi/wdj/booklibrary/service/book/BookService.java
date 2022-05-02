@@ -1,4 +1,4 @@
-package com.fmi.wdj.booklibrary.service;
+package com.fmi.wdj.booklibrary.service.book;
 
 import com.fmi.wdj.booklibrary.model.book.Book;
 import com.fmi.wdj.booklibrary.model.book.Genre;
