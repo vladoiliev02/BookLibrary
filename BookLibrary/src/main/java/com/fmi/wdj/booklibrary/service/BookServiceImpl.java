@@ -2,8 +2,8 @@ package com.fmi.wdj.booklibrary.service;
 
 import com.fmi.wdj.booklibrary.model.book.Book;
 import com.fmi.wdj.booklibrary.model.book.Genre;
-import com.fmi.wdj.booklibrary.repository.BookGenreRepository;
-import com.fmi.wdj.booklibrary.repository.BookRepository;
+import com.fmi.wdj.booklibrary.repository.book.BookGenreRepository;
+import com.fmi.wdj.booklibrary.repository.book.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
