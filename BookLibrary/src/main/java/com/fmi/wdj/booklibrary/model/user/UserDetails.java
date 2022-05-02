@@ -25,6 +25,10 @@ public class UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
+    String firstName;
+
+    String lastName;
+
     @Column(unique = true)
     private String phoneNumber;
 

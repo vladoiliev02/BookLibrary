@@ -1,6 +1,6 @@
-package com.fmi.wdj.booklibrary.mapper;
+package com.fmi.wdj.booklibrary.mapper.book;
 
-import com.fmi.wdj.booklibrary.dto.BookDto;
+import com.fmi.wdj.booklibrary.dto.book.BookDto;
 import com.fmi.wdj.booklibrary.model.book.Book;
 import com.fmi.wdj.booklibrary.model.book.BookGenre;
 import com.fmi.wdj.booklibrary.model.book.Genre;
