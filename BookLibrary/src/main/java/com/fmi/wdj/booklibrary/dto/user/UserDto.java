@@ -16,5 +16,5 @@ public class UserDto {
     private String username;
 
     @NotNull
-    private UserDetailsDto details;
+    private UserInfoDto details;
 }

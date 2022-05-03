@@ -13,13 +13,13 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "user_details")
+@Table(name = "user_info")
 @Data
-public class UserDetails {
+public class UserInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "details_id", nullable = false)
+    @Column(name = "info_id", nullable = false)
     private long id;
 
     @NotNull(message = "E-mail cannot be null.")

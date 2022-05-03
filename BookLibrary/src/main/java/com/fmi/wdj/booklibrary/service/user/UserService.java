@@ -1,7 +1,7 @@
 package com.fmi.wdj.booklibrary.service.user;
 
 import com.fmi.wdj.booklibrary.model.user.User;
-import com.fmi.wdj.booklibrary.model.user.UserDetails;
+import com.fmi.wdj.booklibrary.model.user.UserInfo;
 
 import java.util.List;
 
@@ -17,5 +17,5 @@ public interface UserService {
 
     boolean exists(String username);
 
-    UserDetails getDetailsForUser(String username);
+    UserInfo getUserInfo(String username);
 }

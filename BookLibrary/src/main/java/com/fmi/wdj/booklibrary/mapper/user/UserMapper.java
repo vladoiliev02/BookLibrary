@@ -1,11 +1,9 @@
 package com.fmi.wdj.booklibrary.mapper.user;
 
-import com.fmi.wdj.booklibrary.dto.user.UserDetailsDto;
+import com.fmi.wdj.booklibrary.dto.user.UserInfoDto;
 import com.fmi.wdj.booklibrary.dto.user.UserDto;
 import com.fmi.wdj.booklibrary.model.user.User;
-import com.fmi.wdj.booklibrary.model.user.UserDetails;
-import com.fmi.wdj.booklibrary.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fmi.wdj.booklibrary.model.user.UserInfo;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,20 +13,20 @@ public class UserMapper {
         UserDto dto = new UserDto();
 
         dto.setUsername(user.getUsername());
-        dto.setDetails(toUserDetailsDto(user.getDetails()));
+        dto.setDetails(toUserInfoDto(user.getInfo()));
 
         return dto;
     }
 
-    public UserDetailsDto toUserDetailsDto(UserDetails userDetails) {
-        return new UserDetailsDto(
-                userDetails.getEmail(),
-                userDetails.getFirstName(),
-                userDetails.getLastName(),
-                userDetails.getPhoneNumber(),
-                userDetails.getCountry(),
-                userDetails.getCity(),
-                userDetails.getStreet()
+    public UserInfoDto toUserInfoDto(UserInfo userInfo) {
+        return new UserInfoDto(
+                userInfo.getEmail(),
+                userInfo.getFirstName(),
+                userInfo.getLastName(),
+                userInfo.getPhoneNumber(),
+                userInfo.getCountry(),
+                userInfo.getCity(),
+                userInfo.getStreet()
         );
     }
 
@@ -36,22 +34,22 @@ public class UserMapper {
         User user = new User();
 
         user.setUsername(userDto.getUsername());
-        user.setDetails(fromUserDetailsDto(userDto.getDetails()));
+        user.setInfo(fromUserInfoDto(userDto.getDetails()));
 
         return user;
     }
 
-    public UserDetails fromUserDetailsDto(UserDetailsDto userDetailsDto) {
-        UserDetails userDetails = new UserDetails();
+    public UserInfo fromUserInfoDto(UserInfoDto userInfoDto) {
+        UserInfo userInfo = new UserInfo();
 
-        userDetails.setEmail(userDetailsDto.getEmail());
-        userDetails.setFirstName(userDetailsDto.getFirstName());
-        userDetails.setLastName(userDetailsDto.getLastName());
-        userDetails.setPhoneNumber(userDetailsDto.getPhoneNumber());
-        userDetails.setCountry(userDetailsDto.getCountry());
-        userDetails.setCity(userDetailsDto.getCity());
-        userDetails.setStreet(userDetailsDto.getStreet());
+        userInfo.setEmail(userInfoDto.getEmail());
+        userInfo.setFirstName(userInfoDto.getFirstName());
+        userInfo.setLastName(userInfoDto.getLastName());
+        userInfo.setPhoneNumber(userInfoDto.getPhoneNumber());
+        userInfo.setCountry(userInfoDto.getCountry());
+        userInfo.setCity(userInfoDto.getCity());
+        userInfo.setStreet(userInfoDto.getStreet());
 
-        return userDetails;
+        return userInfo;
     }
 }

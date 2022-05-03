@@ -1,10 +1,10 @@
 package com.fmi.wdj.booklibrary.controller.user;
 
-import com.fmi.wdj.booklibrary.dto.user.UserDetailsDto;
+import com.fmi.wdj.booklibrary.dto.user.UserInfoDto;
 import com.fmi.wdj.booklibrary.dto.user.UserDto;
 import com.fmi.wdj.booklibrary.mapper.user.UserMapper;
 import com.fmi.wdj.booklibrary.model.user.User;
-import com.fmi.wdj.booklibrary.model.user.UserDetails;
+import com.fmi.wdj.booklibrary.model.user.UserInfo;
 import com.fmi.wdj.booklibrary.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/admin/users")
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
@@ -53,10 +53,10 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @GetMapping("/details/{username}")
-    public UserDetailsDto getUserDetails(@PathVariable String username) {
-        UserDetails userDetails =  userService.getDetailsForUser(username);
-        return userMapper.toUserDetailsDto(userDetails);
+    @GetMapping("/info/{username}")
+    public UserInfoDto getUserInfo(@PathVariable String username) {
+        UserInfo userInfo =  userService.getUserInfo(username);
+        return userMapper.toUserInfoDto(userInfo);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UserControllerImpl implements UserController {
         User updatedUser = userMapper.fromUserDto(user);
         if (isUpdate) {
             // Set the id for the details, so they get updated accordingly.
-            updatedUser.getDetails().setId(userService.getDetailsForUser(user.getUsername()).getId());
+            updatedUser.getInfo().setId(userService.getUserInfo(user.getUsername()).getId());
         }
         userService.saveUser(updatedUser);
 

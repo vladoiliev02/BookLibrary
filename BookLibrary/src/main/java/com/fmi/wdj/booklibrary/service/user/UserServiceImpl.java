@@ -1,8 +1,7 @@
 package com.fmi.wdj.booklibrary.service.user;
 
 import com.fmi.wdj.booklibrary.model.user.User;
-import com.fmi.wdj.booklibrary.model.user.UserDetails;
-import com.fmi.wdj.booklibrary.repository.user.UserDetailsRepository;
+import com.fmi.wdj.booklibrary.model.user.UserInfo;
 import com.fmi.wdj.booklibrary.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails getDetailsForUser(String username) {
-        return userRepository.getById(username).getDetails();
+    public UserInfo getUserInfo(String username) {
+        return userRepository.getById(username).getInfo();
     }
 }

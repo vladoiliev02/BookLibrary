@@ -29,6 +29,6 @@ public class User {
 
     @NotNull(message = "User details cannot be null")
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "details_id")
-    private UserDetails details;
+    @JoinColumn(name = "info_id")
+    private UserInfo info;
 }

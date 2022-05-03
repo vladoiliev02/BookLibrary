@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
-public class UserDetailsDto {
+public class UserInfoDto {
     @NotNull(message = "E-mail cannot be null.")
     @NotEmpty(message = "E-mail cannot be empty.")
     @NotBlank(message = "E-mail cannot be blank.")
