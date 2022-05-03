@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/admin/users")
+@RequestMapping("/api/users")
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
@@ -37,7 +37,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @GetMapping
+    @GetMapping("/admin")
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers()
                 .stream()
@@ -46,7 +46,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @GetMapping("/{username}")
+    @GetMapping("/admin/{username}")
     public UserDto getUser(@PathVariable String username) {
         User result = userService.getUserByUsername(username);
         return userMapper.toUserDto(result);
@@ -60,7 +60,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @PostMapping
+    @PostMapping("/admin")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto addUser(@RequestBody @Valid UserDto user) {
         // Add user already exists exception
@@ -69,7 +69,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @PutMapping
+    @PutMapping("/admin")
     public ResponseEntity<UserDto> updateUser(@RequestBody @Valid UserDto user) {
         boolean isUpdate = userService.exists(user.getUsername());
 
@@ -87,7 +87,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/admin/{username}")
     public void deleteUser(@PathVariable String username) {
         userService.removeUser(username);
     }
