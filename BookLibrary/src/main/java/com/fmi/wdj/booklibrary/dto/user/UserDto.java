@@ -1,5 +1,6 @@
 package com.fmi.wdj.booklibrary.dto.user;
 
+import com.fmi.wdj.booklibrary.security.roles.Role;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -16,5 +17,14 @@ public class UserDto {
     private String username;
 
     @NotNull
-    private UserInfoDto details;
+    private UserInfoDto info;
+
+    @NotNull
+    private String password;
+
+    @NotNull
+    private Boolean isEnabled;
+
+    @NotNull
+    private Role role;
 }

@@ -4,16 +4,28 @@ import com.fmi.wdj.booklibrary.dto.user.UserInfoDto;
 import com.fmi.wdj.booklibrary.dto.user.UserDto;
 import com.fmi.wdj.booklibrary.model.user.User;
 import com.fmi.wdj.booklibrary.model.user.UserInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
 
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public UserDto toUserDto(User user) {
         UserDto dto = new UserDto();
 
         dto.setUsername(user.getUsername());
-        dto.setDetails(toUserInfoDto(user.getInfo()));
+        dto.setInfo(toUserInfoDto(user.getInfo()));
+        dto.setRole(user.getRole());
+        dto.setPassword(user.getPassword());
+        dto.setIsEnabled(user.getIsEnabled());
 
         return dto;
     }
@@ -34,7 +46,10 @@ public class UserMapper {
         User user = new User();
 
         user.setUsername(userDto.getUsername());
-        user.setInfo(fromUserInfoDto(userDto.getDetails()));
+        user.setInfo(fromUserInfoDto(userDto.getInfo()));
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRole(userDto.getRole());
+        user.setIsEnabled(userDto.getIsEnabled());
 
         return user;
     }

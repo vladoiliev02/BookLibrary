@@ -1,6 +1,6 @@
 package com.fmi.wdj.booklibrary.security;
 
-import com.fmi.wdj.booklibrary.security.roles.Roles;
+import com.fmi.wdj.booklibrary.security.roles.Authority;
 import com.fmi.wdj.booklibrary.service.user.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,18 +9,20 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import static com.fmi.wdj.booklibrary.security.roles.Role.*;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserAuthenticationService userAuthenticationService;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityConfig(UserAuthenticationService userAuthenticationService) {
+    public SecurityConfig(UserAuthenticationService userAuthenticationService, PasswordEncoder passwordEncoder) {
         this.userAuthenticationService = userAuthenticationService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -28,8 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole(Roles.ADMIN.getRole())
-                .antMatchers("/api/**").hasRole(Roles.USER.getRole())
+                .antMatchers("/api/users/admin**").hasRole(ADMIN.getRole())
+                .antMatchers("/api/users**").hasAnyRole(USER.getRole(), ADMIN.getRole())
+                .antMatchers("/api/books**").hasAnyRole(USER.getRole(), ADMIN.getRole())
                 .anyRequest()
                 .authenticated()
                 .and()

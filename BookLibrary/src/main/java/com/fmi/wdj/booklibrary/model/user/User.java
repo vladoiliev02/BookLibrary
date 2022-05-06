@@ -1,6 +1,7 @@
 package com.fmi.wdj.booklibrary.model.user;
 
-import com.fmi.wdj.booklibrary.security.roles.Roles;
+import com.fmi.wdj.booklibrary.security.roles.Authority;
+import com.fmi.wdj.booklibrary.security.roles.Role;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,9 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -20,6 +22,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -34,7 +37,7 @@ public class User implements UserDetails {
     @Length(min = 5, max = 20, message = "The username should be between 5 and 20 characters long.")
     private String username;
 
-    @NotNull(message = "User details cannot be null")
+    @NotNull(message = "User info cannot be null")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "info_id")
     private UserInfo info;
@@ -47,10 +50,20 @@ public class User implements UserDetails {
     @NotNull(message = "isEnabled must be specified")
     private Boolean isEnabled;
 
+    @NotNull(message = "User role cannot be null.")
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(new SimpleGrantedAuthority(Roles.USER.getRole()));
+        Set<SimpleGrantedAuthority> authorities = role.getAuthorities()
+            .stream().
+            map(Authority::getAuthority).
+            map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toSet());
+        authorities.add(new SimpleGrantedAuthority(role.getRole()));
+
+        return authorities;
     }
 
     @Override
