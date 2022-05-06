@@ -1,8 +1,10 @@
 package com.fmi.wdj.booklibrary.model.user;
 
+import com.fmi.wdj.booklibrary.security.roles.Roles;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.CascadeType;
@@ -10,12 +12,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -40,17 +44,13 @@ public class User implements UserDetails {
     @NotBlank(message = "Password cannot be blank.")
     private String password;
 
-    private boolean isNonExpired;
+    @NotNull(message = "isEnabled must be specified")
+    private Boolean isEnabled;
 
-    private boolean isNonLocked;
-
-    private boolean isCredentialsNonExpired;
-
-    private boolean isEnabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Set.of(new SimpleGrantedAuthority(Roles.USER.getRole()));
     }
 
     @Override
@@ -60,17 +60,17 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isNonExpired;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isNonLocked;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isCredentialsNonExpired;
+        return true;
     }
 
     @Override

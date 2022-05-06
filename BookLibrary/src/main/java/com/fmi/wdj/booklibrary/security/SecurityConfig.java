@@ -1,5 +1,6 @@
 package com.fmi.wdj.booklibrary.security;
 
+import com.fmi.wdj.booklibrary.security.roles.Roles;
 import com.fmi.wdj.booklibrary.service.user.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,11 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .antMatchers("/admin/**").hasRole(Roles.ADMIN.getRole())
+                .antMatchers("/api/**").hasRole(Roles.USER.getRole())
+                .anyRequest()
+                .authenticated()
                 .and()
-                .formLogin().and()
+                .formLogin()
+                .and()
                 .httpBasic();
-
     }
 
     @Override
