@@ -158,14 +158,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/users",
+							"raw": "localhost:8080/api/users/admin/all",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"users"
+								"users",
+								"admin",
+								"all"
 							]
 						}
 					},
@@ -197,7 +199,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/users/details/user1",
+							"raw": "localhost:8080/api/users/info/user2",
 							"host": [
 								"localhost"
 							],
@@ -205,8 +207,8 @@
 							"path": [
 								"api",
 								"users",
-								"details",
-								"user1"
+								"info",
+								"user2"
 							]
 						}
 					},
@@ -219,7 +221,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"user1\",\r\n    \"details\": {\r\n        \"email\": \"user1@gamil.com\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"username\": \"user2\",\r\n    \"info\": {\r\n        \"email\": \"user2@gamil.com\"\r\n    },\r\n    \"password\": \"1234\",\r\n    \"isEnabled\": true,\r\n    \"role\": \"USER\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -227,14 +229,16 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/users",
+							"raw": "localhost:8080/api/users/admin/",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"users"
+								"users",
+								"admin",
+								""
 							]
 						}
 					},
@@ -247,7 +251,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"user1\",\r\n    \"details\": {\r\n        \"email\": \"user1@gamil.com\",\r\n        \"firstName\": \"user\",\r\n        \"lastName\": \"first\",\r\n        \"phoneNumber\": \"0885631578\",\r\n        \"country\": \"Bulgaria\",\r\n        \"city\": \"Sofia\",\r\n        \"street\": \"bul. knqz Al. Dondukov 60\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"username\": \"user1\",\r\n    \"info\": {\r\n        \"email\": \"user1@gamil.com\",\r\n        \"firstName\": \"user\",\r\n        \"lastName\": \"first\",\r\n        \"phoneNumber\": \"0885631568\",\r\n        \"country\": \"Bulgaria\",\r\n        \"city\": \"Sofia\",\r\n        \"street\": \"bul. knqz Al. Dondukov 60\"\r\n    },\r\n    \"password\": \"1234\",\r\n    \"isEnabled\": true,\r\n    \"role\": \"USER\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -255,14 +259,16 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/users",
+							"raw": "localhost:8080/api/users/admin/",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"users"
+								"users",
+								"admin",
+								""
 							]
 						}
 					},
@@ -274,7 +280,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/users/user1",
+							"raw": "localhost:8080/api/users/admin/user1",
 							"host": [
 								"localhost"
 							],
@@ -282,6 +288,7 @@
 							"path": [
 								"api",
 								"users",
+								"admin",
 								"user1"
 							]
 						}
@@ -289,6 +296,41 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "1234",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "user1",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
