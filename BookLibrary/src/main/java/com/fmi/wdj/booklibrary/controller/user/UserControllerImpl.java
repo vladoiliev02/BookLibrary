@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,26 +38,32 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @GetMapping("/admin")
+    @GetMapping("/admin/all")
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers()
-                .stream()
-                .map(userMapper::toUserDto)
-                .collect(Collectors.toList());
+            .stream()
+            .map(userMapper::toUserDto)
+            .collect(Collectors.toList());
     }
 
     @Override
-    @GetMapping("/admin/{username}")
-    public UserDto getUser(@PathVariable String username) {
-        User result = userService.getUserByUsername(username);
-        return userMapper.toUserDto(result);
+    @GetMapping("/{username}")
+    public UserDto getUser(@PathVariable String username, Principal principal) {
+        if (username.equals(principal.getName()) || userService.isAdmin(principal.getName())) {
+            User result = userService.getUserByUsername(username);
+            return userMapper.toUserDto(result);
+        }
+        throw new IllegalArgumentException("You can only see your own personal details.");
     }
 
     @Override
     @GetMapping("/info/{username}")
-    public UserInfoDto getUserInfo(@PathVariable String username) {
-        UserInfo userInfo =  userService.getUserInfo(username);
-        return userMapper.toUserInfoDto(userInfo);
+    public UserInfoDto getUserInfo(@PathVariable String username, Principal principal) {
+        if (username.equals(principal.getName()) || userService.isAdmin(principal.getName())) {
+            UserInfo userInfo = userService.getUserInfo(username);
+            return userMapper.toUserInfoDto(userInfo);
+        }
+        throw new IllegalArgumentException("You can only see your own personal details.");
     }
 
     @Override
@@ -83,7 +90,7 @@ public class UserControllerImpl implements UserController {
 
         UserDto result = userMapper.toUserDto(updatedUser);
         return isUpdate ? new ResponseEntity<>(result, HttpStatus.OK)
-                        : new ResponseEntity<>(result, HttpStatus.CREATED);
+            : new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @Override

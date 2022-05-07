@@ -18,4 +18,6 @@ public interface UserService {
     boolean exists(String username);
 
     UserInfo getUserInfo(String username);
+
+    boolean isAdmin(String username);
 }

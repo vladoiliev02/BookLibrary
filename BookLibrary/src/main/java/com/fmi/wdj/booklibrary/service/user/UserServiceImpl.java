@@ -3,6 +3,7 @@ package com.fmi.wdj.booklibrary.service.user;
 import com.fmi.wdj.booklibrary.model.user.User;
 import com.fmi.wdj.booklibrary.model.user.UserInfo;
 import com.fmi.wdj.booklibrary.repository.user.UserRepository;
+import com.fmi.wdj.booklibrary.security.roles.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo getUserInfo(String username) {
         return userRepository.getById(username).getInfo();
+    }
+
+    @Override
+    public boolean isAdmin(String username) {
+        return userRepository.findById(username)
+            .map(user -> user.getRole().equals(Role.ADMIN))
+            .orElse(false);
     }
 }
