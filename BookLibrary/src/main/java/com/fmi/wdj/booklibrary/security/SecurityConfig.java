@@ -1,9 +1,9 @@
 package com.fmi.wdj.booklibrary.security;
 
-import com.fmi.wdj.booklibrary.security.roles.Authority;
 import com.fmi.wdj.booklibrary.service.user.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static com.fmi.wdj.booklibrary.security.roles.Role.*;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -30,9 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/users/admin**").hasRole(ADMIN.getRole())
-                .antMatchers("/api/users**").hasAnyRole(USER.getRole(), ADMIN.getRole())
-                .antMatchers("/api/books**").hasAnyRole(USER.getRole(), ADMIN.getRole())
+                .antMatchers("/api/users/admin/**").hasRole(ADMIN.name())
+                .antMatchers("/api/users/**").hasAnyRole(USER.name(), ADMIN.name())
+                .antMatchers("/api/books/**").hasAnyRole(USER.name(), ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -49,8 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(userAuthenticationService);
+        provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
 }
