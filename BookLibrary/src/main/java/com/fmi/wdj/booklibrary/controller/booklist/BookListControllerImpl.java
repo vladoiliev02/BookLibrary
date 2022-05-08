@@ -1,12 +1,15 @@
 package com.fmi.wdj.booklibrary.controller.booklist;
 
 import com.fmi.wdj.booklibrary.dto.booklist.BookListDto;
+import com.fmi.wdj.booklibrary.dto.booklist.CreateUpdateBookListDto;
 import com.fmi.wdj.booklibrary.mapper.booklist.BookListMapper;
 import com.fmi.wdj.booklibrary.model.booklist.BookList;
 import com.fmi.wdj.booklibrary.service.booklist.BookListService;
+import com.fmi.wdj.booklibrary.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,25 +44,25 @@ public class BookListControllerImpl implements BookListController {
     public List<BookListDto> getAllList() {
         return bookListService.getAllLists()
             .stream()
-            .map(bookListMapper::toDto)
+            .map(bookListMapper::toBookListDto)
             .collect(Collectors.toList());
     }
 
     @Override
-    @GetMapping("/{username}")
+    @GetMapping("username/{username}")
     public List<BookListDto> getAllByUser(@PathVariable String username) {
         return bookListService.getByUser(username)
             .stream()
-            .map(bookListMapper::toDto)
+            .map(bookListMapper::toBookListDto)
             .collect(Collectors.toList());
     }
 
     @Override
-    @GetMapping("/{bookListName}")
+    @GetMapping("listName/{bookListName}")
     public List<BookListDto> getAllWithName(@PathVariable String bookListName) {
         return bookListService.getByName(bookListName)
             .stream()
-            .map(bookListMapper::toDto)
+            .map(bookListMapper::toBookListDto)
             .collect(Collectors.toList());
     }
 
@@ -67,7 +70,7 @@ public class BookListControllerImpl implements BookListController {
     @GetMapping("/{username}/{bookListName}")
     public BookListDto getUserListByName(@PathVariable String username, @PathVariable String bookListName) {
         return bookListService.getByNameAndUser(bookListName, username)
-            .map(bookListMapper::toDto)
+            .map(bookListMapper::toBookListDto)
             .orElseThrow(() -> new IllegalArgumentException(String.format(
                 "User %s, has no list with name %s", username, bookListName
             )));
@@ -76,30 +79,32 @@ public class BookListControllerImpl implements BookListController {
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookListDto createBookList(@RequestBody @Valid BookListDto bookListDto) {
-        BookList newList = bookListMapper.fromDto(bookListDto);
+    public BookListDto createBookList(@RequestBody @Valid CreateUpdateBookListDto bookListDto, Principal principal) {
+        BookList newList = bookListMapper.fromCreateUpdateDto(bookListDto, principal.getName());
+
         newList = bookListService.createList(newList);
-        return bookListMapper.toDto(newList);
+        return bookListMapper.toBookListDto(newList);
     }
 
     @Override
     @PutMapping
-    public ResponseEntity<BookListDto> updateBookList(@RequestBody @Valid BookListDto bookListDto,
+    public ResponseEntity<BookListDto> updateBookList(@RequestBody @Valid CreateUpdateBookListDto bookListDto,
                                                       Principal principal) {
-        boolean exists = bookListService.getByNameAndUser(bookListDto.getName(), bookListDto.getOwnerUsername())
-            .isPresent();
+        BookList list = bookListMapper.fromCreateUpdateDto(bookListDto, principal.getName());
 
-        BookList list = bookListMapper.fromDto(bookListDto);
+        BookList existing = bookListService.getByNameAndUser(list.getName(), list.getOwner().getUsername())
+            .orElse(null);
 
         BookListDto result;
         HttpStatus resultStatus;
-        if (exists) {
+        if (existing != null) {
+            list.setBookListId(existing.getBookListId());
             BookList updated = bookListService.updateList(list);
-            result = bookListMapper.toDto(updated);
+            result = bookListMapper.toBookListDto(updated);
             resultStatus = HttpStatus.OK;
         } else {
             BookList newList = bookListService.createList(list);
-            result = bookListMapper.toDto(newList);
+            result = bookListMapper.toBookListDto(newList);
             resultStatus = HttpStatus.CREATED;
         }
 
@@ -116,7 +121,7 @@ public class BookListControllerImpl implements BookListController {
 
         bookListService.addBook(list, isbn);
 
-        return bookListMapper.toDto(list);
+        return bookListMapper.toBookListDto(list);
     }
 
     @Override
@@ -129,14 +134,15 @@ public class BookListControllerImpl implements BookListController {
 
         bookListService.removeBook(list, isbn);
 
-        return bookListMapper.toDto(list);
+        return bookListMapper.toBookListDto(list);
     }
 
     @Override
-    public void removeBookList(@PathVariable String name, Principal principal) {
-        BookList list = bookListService.getByNameAndUser(name, principal.getName())
+    @DeleteMapping("/{listName}")
+    public void removeBookList(@PathVariable String listName, Principal principal) {
+        BookList list = bookListService.getByNameAndUser(listName, principal.getName())
             .orElseThrow(() -> new IllegalArgumentException(String.format(
-                "You do not own a list with the name: %s.", name
+                "You do not own a list with the name: %s.", listName
             )));
 
         bookListService.deleteList(list.getBookListId());

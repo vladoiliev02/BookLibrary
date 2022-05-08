@@ -15,13 +15,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.util.List;
 
 @Entity
 @Table(
     name = "book_lists",
     indexes = {@Index(columnList = "name"),
-               @Index(columnList = "creator_id")}
+               @Index(columnList = "owner")},
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "owner"})}
 )
 @Data
 public class BookList {
@@ -30,11 +32,11 @@ public class BookList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bookListId;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "owner")
+    @JoinColumn(name = "owner", nullable = false)
     private User owner;
 
     @ManyToMany

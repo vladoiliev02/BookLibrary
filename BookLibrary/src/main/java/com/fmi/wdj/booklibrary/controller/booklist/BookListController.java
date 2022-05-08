@@ -1,6 +1,7 @@
 package com.fmi.wdj.booklibrary.controller.booklist;
 
 import com.fmi.wdj.booklibrary.dto.booklist.BookListDto;
+import com.fmi.wdj.booklibrary.dto.booklist.CreateUpdateBookListDto;
 import org.springframework.http.ResponseEntity;
 
 import java.security.Principal;
@@ -16,13 +17,13 @@ public interface BookListController {
 
     BookListDto getUserListByName(String username, String bookListName);
 
-    BookListDto createBookList(BookListDto bookListDto);
+    BookListDto createBookList(CreateUpdateBookListDto bookListDto, Principal principal);
 
-    ResponseEntity<BookListDto> updateBookList(BookListDto bookListDto, Principal principal);
+    ResponseEntity<BookListDto> updateBookList(CreateUpdateBookListDto bookListDto, Principal principal);
 
     BookListDto addBook(String bookListName, String isbn, Principal principal);
 
     BookListDto removeBook(String bookListName, String isbn, Principal principal);
 
-    void removeBookList(String name, Principal principal);
+    void removeBookList(String listName, Principal principal);
 }

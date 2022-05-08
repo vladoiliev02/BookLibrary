@@ -1,6 +1,6 @@
 package com.fmi.wdj.booklibrary.dto.booklist;
 
-import com.fmi.wdj.booklibrary.model.book.Book;
+import com.fmi.wdj.booklibrary.dto.book.BookDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ public class BookListDto {
     @NotNull(message = "The name of the list cannot be null.")
     @NotEmpty(message = "The name of the list cannot be empty.")
     @NotBlank(message = "The name of the list cannot be blank.")
-    private String name;
+    private String listName;
 
     @NotNull(message = "The name of the owner cannot be null.")
     @NotEmpty(message = "The name of the owner cannot be empty.")
@@ -22,5 +22,5 @@ public class BookListDto {
     private String ownerUsername;
 
     @NotNull(message = "The list of books cannot be null.")
-    private List<Book> books;
+    private List<BookDto> books;
 }

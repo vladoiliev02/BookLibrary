@@ -72,6 +72,7 @@ public class BookListServiceImpl implements BookListService {
             .orElseThrow(() -> new IllegalArgumentException(String.format("Book with ISBN: %s, not found.", isbn)));
 
         bookList.getBooks().add(book);
+        bookListRepository.save(bookList);
         return bookList;
     }
 
@@ -82,6 +83,7 @@ public class BookListServiceImpl implements BookListService {
             .orElseThrow(() -> new IllegalArgumentException(String.format("Book with ISBN: %s, not found.", isbn)));
 
         bookList.getBooks().remove(book);
+        bookListRepository.save(bookList);
         return bookList;
     }
 
