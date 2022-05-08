@@ -30,14 +30,11 @@ public class BookListControllerImpl implements BookListController {
 
     private final BookListService bookListService;
     private final BookListMapper bookListMapper;
-    private final BookService bookService;
 
     @Autowired
-    public BookListControllerImpl(BookListService bookListService, BookListMapper bookListMapper,
-                                  BookService bookService) {
+    public BookListControllerImpl(BookListService bookListService, BookListMapper bookListMapper) {
         this.bookListService = bookListService;
         this.bookListMapper = bookListMapper;
-        this.bookService = bookService;
     }
 
     @Override
