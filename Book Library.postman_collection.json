@@ -229,7 +229,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/users/admin/",
+							"raw": "localhost:8080/api/users/admin",
 							"host": [
 								"localhost"
 							],
@@ -237,8 +237,7 @@
 							"path": [
 								"api",
 								"users",
-								"admin",
-								""
+								"admin"
 							]
 						}
 					},
@@ -259,7 +258,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/users/admin/",
+							"raw": "localhost:8080/api/users/admin",
 							"host": [
 								"localhost"
 							],
@@ -267,8 +266,7 @@
 							"path": [
 								"api",
 								"users",
-								"admin",
-								""
+								"admin"
 							]
 						}
 					},
@@ -290,6 +288,209 @@
 								"users",
 								"admin",
 								"user1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BookListEndpoint",
+			"item": [
+				{
+					"name": "Get All Book Lists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Book Lists For User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/user1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"user1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Book Lists With Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/bookListName",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"bookListName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Book Lists By User With Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/user1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"user1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Book List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book List",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Book To List",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/add?bookListName=bln&isbn=4561237894",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"add"
+							],
+							"query": [
+								{
+									"key": "bookListName",
+									"value": "bln"
+								},
+								{
+									"key": "isbn",
+									"value": "4561237894"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Book From List",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/remove?bookListName=bln&isbn=4561237894",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "bookListName",
+									"value": "bln"
+								},
+								{
+									"key": "isbn",
+									"value": "4561237894"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book List By Name",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/bln",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"bln"
 							]
 						}
 					},

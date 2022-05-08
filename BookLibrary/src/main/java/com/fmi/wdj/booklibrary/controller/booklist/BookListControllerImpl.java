@@ -3,7 +3,6 @@ package com.fmi.wdj.booklibrary.controller.booklist;
 import com.fmi.wdj.booklibrary.dto.booklist.BookListDto;
 import com.fmi.wdj.booklibrary.mapper.booklist.BookListMapper;
 import com.fmi.wdj.booklibrary.model.booklist.BookList;
-import com.fmi.wdj.booklibrary.service.book.BookService;
 import com.fmi.wdj.booklibrary.service.booklist.BookListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -134,7 +133,7 @@ public class BookListControllerImpl implements BookListController {
     }
 
     @Override
-    public void removeBookList(String name, Principal principal) {
+    public void removeBookList(@PathVariable String name, Principal principal) {
         BookList list = bookListService.getByNameAndUser(name, principal.getName())
             .orElseThrow(() -> new IllegalArgumentException(String.format(
                 "You do not own a list with the name: %s.", name
