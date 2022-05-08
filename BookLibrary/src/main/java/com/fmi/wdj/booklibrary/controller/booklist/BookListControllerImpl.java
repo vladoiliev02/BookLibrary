@@ -26,6 +26,12 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * TODO:
+ *      - Add notes for the books in the list, which the owner of the list can edit.
+ *      - Allow any user to search for a book in the list by ISBN.
+ *
+ * */
 @RestController
 @RequestMapping("/api/book-lists")
 public class BookListControllerImpl implements BookListController {
