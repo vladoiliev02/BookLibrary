@@ -2,7 +2,6 @@ package com.fmi.wdj.booklibrary.controller.booklist;
 
 import com.fmi.wdj.booklibrary.dto.booklist.BookListDto;
 import com.fmi.wdj.booklibrary.mapper.booklist.BookListMapper;
-import com.fmi.wdj.booklibrary.model.book.Book;
 import com.fmi.wdj.booklibrary.model.booklist.BookList;
 import com.fmi.wdj.booklibrary.service.book.BookService;
 import com.fmi.wdj.booklibrary.service.booklist.BookListService;

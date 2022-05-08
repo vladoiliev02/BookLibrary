@@ -1,7 +1,6 @@
 package com.fmi.wdj.booklibrary.controller.booklist;
 
 import com.fmi.wdj.booklibrary.dto.booklist.BookListDto;
-import com.fmi.wdj.booklibrary.model.booklist.BookList;
 import org.springframework.http.ResponseEntity;
 
 import java.security.Principal;
