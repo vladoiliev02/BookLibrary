@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface BookListRepository extends JpaRepository<BookList, Long> {
     List<BookList> findByName(String name);
 
-    List<BookList> findByCreator(User creator);
+    List<BookList> findByOwner(User owner);
 
-    Optional<BookList> findByNameAndCreator(String name, User creator);
+    Optional<BookList> findByNameAndOwner(String name, User owner);
 }

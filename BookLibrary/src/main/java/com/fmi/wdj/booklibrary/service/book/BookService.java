@@ -1,9 +1,9 @@
 package com.fmi.wdj.booklibrary.service.book;
 
 import com.fmi.wdj.booklibrary.model.book.Book;
-import com.fmi.wdj.booklibrary.model.book.Genre;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
 
@@ -13,7 +13,7 @@ public interface BookService {
 
     List<Book> getAllBooks();
 
-    Book getBookByISBN(String isbn);
+    Optional<Book> getBookByISBN(String isbn);
 
     boolean exists(String isbn);
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -43,8 +44,8 @@ public class BookServiceImpl implements BookService {
 
     // Consider throwing an exception instead of returning null
     @Override
-    public Book getBookByISBN(String isbn) {
-        return bookRepository.findById(isbn).orElse(null);
+    public Optional<Book> getBookByISBN(String isbn) {
+        return bookRepository.findById(isbn);
     }
 
     public List<Book> getBookByTitle(String title) {

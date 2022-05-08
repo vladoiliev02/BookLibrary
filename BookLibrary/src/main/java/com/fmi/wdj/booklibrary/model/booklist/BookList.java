@@ -34,8 +34,8 @@ public class BookList {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "creator_id")
-    private User creator;
+    @JoinColumn(name = "owner")
+    private User owner;
 
     @ManyToMany
     @JoinTable(
