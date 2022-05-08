@@ -3,6 +3,7 @@ package com.fmi.wdj.booklibrary.service.booklist;
 import com.fmi.wdj.booklibrary.model.booklist.BookList;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookListService {
 
@@ -16,7 +17,7 @@ public interface BookListService {
 
     List<BookList> getByUser(String username);
 
-    BookList getByNameAndUser(String listName, String username);
+    Optional<BookList> getByNameAndUser(String listName, String username);
 
     BookList addBook(BookList bookList, String isbn);
 

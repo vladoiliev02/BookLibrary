@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookListServiceImpl implements BookListService {
@@ -50,15 +51,18 @@ public class BookListServiceImpl implements BookListService {
 
     @Override
     public List<BookList> getByUser(String username) {
-        User owner = userService.getUserByUsername(username);
+        User owner = userService.getUserByUsername(username)
+            .orElseThrow(() -> new IllegalArgumentException(
+                String.format("User %s, not found.", username)));
         return bookListRepository.findByOwner(owner);
     }
 
     @Override
-    public BookList getByNameAndUser(String listName, String username) {
-        User owner = userService.getUserByUsername(username);
-        return bookListRepository.findByNameAndOwner(listName, owner)
-            .orElse(null);
+    public Optional<BookList> getByNameAndUser(String listName, String username) {
+        User owner = userService.getUserByUsername(username)
+            .orElseThrow(() -> new IllegalArgumentException(
+                String.format("User %s, not found.", username)));
+        return bookListRepository.findByNameAndOwner(listName, owner);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.fmi.wdj.booklibrary.model.user.User;
 import com.fmi.wdj.booklibrary.model.user.UserInfo;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -13,7 +14,7 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User getUserByUsername(String username);
+    Optional<User> getUserByUsername(String username);
 
     boolean exists(String username);
 
