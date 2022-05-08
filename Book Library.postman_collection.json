@@ -9,26 +9,6 @@
 			"name": "BookEndpoint",
 			"item": [
 				{
-					"name": "Get All Books",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/books/all",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"books",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get Book By Criteria",
 					"request": {
 						"method": "GET",
@@ -57,6 +37,26 @@
 									"key": "genre",
 									"value": "mystery"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/books/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								"all"
 							]
 						}
 					},
@@ -324,7 +324,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/book-lists/user1",
+							"raw": "localhost:8080/api/book-lists/username/user1",
 							"host": [
 								"localhost"
 							],
@@ -332,6 +332,7 @@
 							"path": [
 								"api",
 								"book-lists",
+								"username",
 								"user1"
 							]
 						}
@@ -344,7 +345,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/book-lists/bookListName",
+							"raw": "localhost:8080/api/book-lists/listName/list1",
 							"host": [
 								"localhost"
 							],
@@ -352,7 +353,8 @@
 							"path": [
 								"api",
 								"book-lists",
-								"bookListName"
+								"listName",
+								"list1"
 							]
 						}
 					},
@@ -364,7 +366,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/book-lists/user1",
+							"raw": "localhost:8080/api/book-lists/user1/list1",
 							"host": [
 								"localhost"
 							],
@@ -372,7 +374,8 @@
 							"path": [
 								"api",
 								"book-lists",
-								"user1"
+								"user1",
+								"list1"
 							]
 						}
 					},
@@ -383,6 +386,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"listName\": \"list3\",\r\n    \"bookISBNs\": [\"1234567890\", \"1594872630\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:8080/api/book-lists",
 							"host": [
@@ -402,6 +414,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"listName\": \"list2\",\r\n    \"bookISBNs\": [\"1234567890\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:8080/api/book-lists",
 							"host": [
@@ -422,7 +443,7 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/book-lists/add?bookListName=bln&isbn=4561237894",
+							"raw": "localhost:8080/api/book-lists/add?bookListName=list2&isbn=1234567890",
 							"host": [
 								"localhost"
 							],
@@ -435,11 +456,11 @@
 							"query": [
 								{
 									"key": "bookListName",
-									"value": "bln"
+									"value": "list2"
 								},
 								{
 									"key": "isbn",
-									"value": "4561237894"
+									"value": "1234567890"
 								}
 							]
 						}
@@ -452,7 +473,7 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/book-lists/remove?bookListName=bln&isbn=4561237894",
+							"raw": "localhost:8080/api/book-lists/remove?bookListName=list1&isbn=1234567890",
 							"host": [
 								"localhost"
 							],
@@ -465,11 +486,11 @@
 							"query": [
 								{
 									"key": "bookListName",
-									"value": "bln"
+									"value": "list1"
 								},
 								{
 									"key": "isbn",
-									"value": "4561237894"
+									"value": "1234567890"
 								}
 							]
 						}
@@ -482,7 +503,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/book-lists/bln",
+							"raw": "localhost:8080/api/book-lists/list2",
 							"host": [
 								"localhost"
 							],
@@ -490,7 +511,7 @@
 							"path": [
 								"api",
 								"book-lists",
-								"bln"
+								"list2"
 							]
 						}
 					},
