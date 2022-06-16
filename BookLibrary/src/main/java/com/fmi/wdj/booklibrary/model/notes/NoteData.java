@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -36,5 +37,18 @@ public class NoteData {
     public NoteData(User owner, List<Note> notes) {
         this.owner = owner;
         this.notes = notes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NoteData noteData = (NoteData) o;
+        return id.equals(noteData.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

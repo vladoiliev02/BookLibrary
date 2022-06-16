@@ -14,5 +14,5 @@ public interface NoteService {
 
     void addNote(String isbn, String note, User owner);
 
-    void removeNote(String isbn, int position, User owner);
+    void removeNote(long id, User owner);
 }

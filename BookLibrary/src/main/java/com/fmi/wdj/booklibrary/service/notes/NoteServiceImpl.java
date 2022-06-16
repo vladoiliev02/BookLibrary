@@ -6,6 +6,7 @@ import com.fmi.wdj.booklibrary.model.notes.NoteData;
 import com.fmi.wdj.booklibrary.model.user.User;
 import com.fmi.wdj.booklibrary.repository.book.BookRepository;
 import com.fmi.wdj.booklibrary.repository.notes.NoteDataRepository;
+import com.fmi.wdj.booklibrary.repository.notes.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,13 @@ public class NoteServiceImpl implements NoteService {
 
     private final BookRepository bookRepository;
     private final NoteDataRepository noteDataRepository;
+    private final NoteRepository noteRepository;
 
     @Autowired
-    public NoteServiceImpl(BookRepository bookRepository, NoteDataRepository noteDataRepository) {
+    public NoteServiceImpl(BookRepository bookRepository, NoteDataRepository noteDataRepository, NoteRepository noteRepository) {
         this.bookRepository = bookRepository;
         this.noteDataRepository = noteDataRepository;
+        this.noteRepository = noteRepository;
     }
 
     @Override
@@ -47,19 +50,24 @@ public class NoteServiceImpl implements NoteService {
         NoteData noteData = noteDataRepository.findByOwner(owner)
             .orElseGet(() -> noteDataRepository.save(new NoteData(owner, new ArrayList<>())));
 
-        noteData.getNotes().add(new Note(book, note, noteData));
+        Note persistedNote = noteRepository.save(new Note(book, note, noteData));
+        noteData.getNotes().add(persistedNote);
         noteDataRepository.save(noteData);
     }
 
     @Override
-    public void removeNote(String isbn, int position, User owner) {
-        Book book = bookRepository.findById(isbn)
-            .orElseThrow(() -> new IllegalArgumentException(String.format("Book with isbn: %s, not found", isbn)));
+    public void removeNote(long id, User owner) {
         NoteData noteData = noteDataRepository.findByOwner(owner)
             .orElseGet(() -> noteDataRepository.save(new NoteData(owner, new ArrayList<>())));
 
-        noteData.getNotes().remove(position);
-        noteDataRepository.save(noteData);
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Note: %d, not found.", id)));
+
+        if (!note.getNoteData().equals(noteData)) {
+            throw new IllegalArgumentException("This note belongs to a different user.");
+        }
+
+        noteRepository.deleteById(id);
     }
 
 

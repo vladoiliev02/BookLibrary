@@ -14,5 +14,5 @@ public interface NoteController {
 
     String addNote(NewNoteDto newNoteDto, Principal principal);
 
-    void removeNote(String isbn, int position, Principal principal);
+    void removeNote(long id, Principal principal);
 }

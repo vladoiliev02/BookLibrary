@@ -68,10 +68,10 @@ public class NoteControllerImpl implements NoteController {
     }
 
     @Override
-    @DeleteMapping("/{isbn}/{position}")
-    public void removeNote(@PathVariable String isbn, @PathVariable int position, Principal principal) {
+    @DeleteMapping("/{id}")
+    public void removeNote(@PathVariable long id, Principal principal) {
         User owner = userService.getUserByUsername(principal.getName())
             .orElseThrow(() -> new IllegalStateException(String.format("User: %s, not found", principal.getName())));
-        noteService.removeNote(isbn, position, owner);
+        noteService.removeNote(id, owner);
     }
 }
