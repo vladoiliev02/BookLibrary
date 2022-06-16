@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteServiceImpl implements NoteService {
@@ -29,36 +30,38 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public NoteData getNoteDataForUser(User owner) {
-        return noteDataRepository.findByOwner(owner)
-            .orElseGet(() -> noteDataRepository.save(new NoteData(owner, new ArrayList<>())));
+        NoteData result = noteDataRepository.findByOwner(owner)
+            .orElseGet(() -> noteDataRepository.save(new NoteData(owner)));
+        return result;
     }
 
     @Override
-    public List<Note>  getNotesForBook(String isbn, User owner) {
-        Book book = bookRepository.findById(isbn)
+    public List<Note> getNotesForBook(String isbn, User owner) {
+        bookRepository.findById(isbn)
             .orElseThrow(() -> new IllegalArgumentException(String.format("Book with isbn: %s, not found", isbn)));
         NoteData noteData = noteDataRepository.findByOwner(owner)
-            .orElseGet(() -> noteDataRepository.save(new NoteData(owner, new ArrayList<>())));
+            .orElseGet(() -> noteDataRepository.save(new NoteData(owner)));
 
-        return noteData.getNotes();
+        return noteData.getNotes()
+            .stream()
+            .filter(note -> note.getBook().getISBN().equals(isbn))
+            .collect(Collectors.toList());
     }
 
     @Override
-    public void addNote(String isbn, String note, User owner) {
+    public Note addNote(String isbn, String note, User owner) {
         Book book = bookRepository.findById(isbn)
             .orElseThrow(() -> new IllegalArgumentException(String.format("Book with isbn: %s, not found", isbn)));
         NoteData noteData = noteDataRepository.findByOwner(owner)
-            .orElseGet(() -> noteDataRepository.save(new NoteData(owner, new ArrayList<>())));
+            .orElseGet(() -> noteDataRepository.save(new NoteData(owner)));
 
-        Note persistedNote = noteRepository.save(new Note(book, note, noteData));
-        noteData.getNotes().add(persistedNote);
-        noteDataRepository.save(noteData);
+        return noteRepository.save(new Note(book, note, noteData));
     }
 
     @Override
     public void removeNote(long id, User owner) {
         NoteData noteData = noteDataRepository.findByOwner(owner)
-            .orElseGet(() -> noteDataRepository.save(new NoteData(owner, new ArrayList<>())));
+            .orElseGet(() -> noteDataRepository.save(new NoteData(owner)));
 
         Note note = noteRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("Note: %d, not found.", id)));

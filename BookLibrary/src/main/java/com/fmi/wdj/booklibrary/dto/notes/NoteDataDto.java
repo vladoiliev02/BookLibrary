@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class NoteDto {
+public class NoteDataDto {
 
     @NotNull(message = "Notes cannot be null.")
     // Maps book isbn to notes for the book
-    private Map<String, List<String>> notes;
+    private Map<String, List<ResultNoteDto>> notes;
 }

@@ -12,7 +12,7 @@ public interface NoteService {
 
     List<Note> getNotesForBook(String isbn, User owner);
 
-    void addNote(String isbn, String note, User owner);
+    Note addNote(String isbn, String note, User owner);
 
     void removeNote(long id, User owner);
 }

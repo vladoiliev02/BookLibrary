@@ -1,7 +1,8 @@
 package com.fmi.wdj.booklibrary.controller.notes;
 
 import com.fmi.wdj.booklibrary.dto.notes.NewNoteDto;
-import com.fmi.wdj.booklibrary.dto.notes.NoteDto;
+import com.fmi.wdj.booklibrary.dto.notes.NoteDataDto;
+import com.fmi.wdj.booklibrary.dto.notes.ResultNoteDto;
 import com.fmi.wdj.booklibrary.mapper.notes.NoteMapper;
 import com.fmi.wdj.booklibrary.model.notes.Note;
 import com.fmi.wdj.booklibrary.model.notes.NoteData;
@@ -39,7 +40,7 @@ public class NoteControllerImpl implements NoteController {
 
     @Override
     @GetMapping("/all")
-    public NoteDto getAllNotes(Principal principal) {
+    public NoteDataDto getAllNotes(Principal principal) {
         User owner = userService.getUserByUsername(principal.getName())
             .orElseThrow(() -> new IllegalStateException(String.format("User: %s, not found", principal.getName())));
         NoteData noteData = noteService.getNoteDataForUser(owner);
@@ -48,23 +49,25 @@ public class NoteControllerImpl implements NoteController {
 
     @Override
     @GetMapping("/{isbn}")
-    public List<String> getNotesForBook(@PathVariable String isbn, Principal principal) {
+    public List<ResultNoteDto> getNotesForBook(@PathVariable String isbn, Principal principal) {
         User owner = userService.getUserByUsername(principal.getName())
             .orElseThrow(() -> new IllegalStateException(String.format("User: %s, not found", principal.getName())));
         List<Note> notes = noteService.getNotesForBook(isbn, owner);
 
         return notes.stream()
-            .map(Note::getContent)
+            .map(noteMapper::toResultNoteDto)
             .collect(Collectors.toList());
     }
 
     @Override
     @PatchMapping
-    public String addNote(@RequestBody @Valid NewNoteDto newNoteDto, Principal principal) {
+    public ResultNoteDto addNote(@RequestBody @Valid NewNoteDto newNoteDto, Principal principal) {
         User owner = userService.getUserByUsername(principal.getName())
             .orElseThrow(() -> new IllegalStateException(String.format("User: %s, not found", principal.getName())));
-        noteService.addNote(newNoteDto.getISBN(), newNoteDto.getContent(), owner);
-        return newNoteDto.getContent();
+
+        Note note = noteService.addNote(newNoteDto.getISBN(), newNoteDto.getContent(), owner);
+
+        return noteMapper.toResultNoteDto(note);
     }
 
     @Override
@@ -72,6 +75,7 @@ public class NoteControllerImpl implements NoteController {
     public void removeNote(@PathVariable long id, Principal principal) {
         User owner = userService.getUserByUsername(principal.getName())
             .orElseThrow(() -> new IllegalStateException(String.format("User: %s, not found", principal.getName())));
+
         noteService.removeNote(id, owner);
     }
 }
