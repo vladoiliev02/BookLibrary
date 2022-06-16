@@ -30,9 +30,8 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public NoteData getNoteDataForUser(User owner) {
-        NoteData result = noteDataRepository.findByOwner(owner)
+        return noteDataRepository.findByOwner(owner)
             .orElseGet(() -> noteDataRepository.save(new NoteData(owner)));
-        return result;
     }
 
     @Override
@@ -72,6 +71,4 @@ public class NoteServiceImpl implements NoteService {
 
         noteRepository.deleteById(id);
     }
-
-
 }
