@@ -2,6 +2,7 @@ package com.fmi.wdj.booklibrary.controller.user;
 
 import com.fmi.wdj.booklibrary.dto.user.UserInfoDto;
 import com.fmi.wdj.booklibrary.dto.user.UserDto;
+import com.fmi.wdj.booklibrary.dto.user.UserInfoUpdateDto;
 import org.springframework.http.ResponseEntity;
 
 import java.security.Principal;
@@ -13,6 +14,8 @@ public interface UserController {
     UserDto getUser(String username, Principal principal);
 
     UserInfoDto getUserInfo(String username, Principal principal);
+
+    UserInfoDto updateUserInfo(UserInfoUpdateDto userInfoDto, Principal principal);
 
     UserDto addUser(UserDto user);
 

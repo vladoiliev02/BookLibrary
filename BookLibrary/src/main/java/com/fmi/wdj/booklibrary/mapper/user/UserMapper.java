@@ -2,6 +2,7 @@ package com.fmi.wdj.booklibrary.mapper.user;
 
 import com.fmi.wdj.booklibrary.dto.user.UserInfoDto;
 import com.fmi.wdj.booklibrary.dto.user.UserDto;
+import com.fmi.wdj.booklibrary.dto.user.UserInfoUpdateDto;
 import com.fmi.wdj.booklibrary.model.user.User;
 import com.fmi.wdj.booklibrary.model.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,18 @@ public class UserMapper {
         userInfo.setCountry(userInfoDto.getCountry());
         userInfo.setCity(userInfoDto.getCity());
         userInfo.setStreet(userInfoDto.getStreet());
+
+        return userInfo;
+    }
+
+    public UserInfo fromUserInfoUpdateDto(UserInfoUpdateDto infoUpdateDto) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setFirstName(infoUpdateDto.getFirstName());
+        userInfo.setLastName(infoUpdateDto.getLastName());
+        userInfo.setPhoneNumber(infoUpdateDto.getPhoneNumber());
+        userInfo.setCity(infoUpdateDto.getCity());
+        userInfo.setCountry(infoUpdateDto.getCountry());
+        userInfo.setStreet(infoUpdateDto.getStreet());
 
         return userInfo;
     }

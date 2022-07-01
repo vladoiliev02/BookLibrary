@@ -2,6 +2,7 @@ package com.fmi.wdj.booklibrary.service.user;
 
 import com.fmi.wdj.booklibrary.model.user.User;
 import com.fmi.wdj.booklibrary.model.user.UserInfo;
+import com.fmi.wdj.booklibrary.repository.user.UserInfoRepository;
 import com.fmi.wdj.booklibrary.repository.user.UserRepository;
 import com.fmi.wdj.booklibrary.security.roles.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserInfoRepository userInfoRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserInfoRepository userInfoRepository) {
         this.userRepository = userRepository;
+        this.userInfoRepository = userInfoRepository;
     }
 
     @Override
@@ -28,6 +31,24 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
+
+    @Override
+    public User updateInfo(String username, UserInfo newInfo) {
+        User user = getUserByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("User %s, not found.", username)));
+
+        UserInfo oldInfo = user.getInfo();
+
+        userInfoRepository.getById(oldInfo.getId());
+
+        newInfo.setEmail(oldInfo.getEmail());
+        newInfo.setId(oldInfo.getId());
+        userInfoRepository.save(newInfo);
+
+        return user;
+    }
+
 
     @Override
     public void removeUser(String username) {

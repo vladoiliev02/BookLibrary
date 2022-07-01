@@ -2,6 +2,7 @@ package com.fmi.wdj.booklibrary.controller.user;
 
 import com.fmi.wdj.booklibrary.dto.user.UserInfoDto;
 import com.fmi.wdj.booklibrary.dto.user.UserDto;
+import com.fmi.wdj.booklibrary.dto.user.UserInfoUpdateDto;
 import com.fmi.wdj.booklibrary.mapper.user.UserMapper;
 import com.fmi.wdj.booklibrary.model.user.User;
 import com.fmi.wdj.booklibrary.model.user.UserInfo;
@@ -69,6 +70,16 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
+    @PutMapping("/info")
+    public UserInfoDto updateUserInfo(@RequestBody UserInfoUpdateDto userInfoUpdateDto, Principal principal) {
+        UserInfo newInfo = userMapper.fromUserInfoUpdateDto(userInfoUpdateDto);
+
+        User result = userService.updateInfo(principal.getName(), newInfo);
+
+        return userMapper.toUserInfoDto(result.getInfo());
+    }
+
+    @Override
     @PostMapping("/admin")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto addUser(@RequestBody @Valid UserDto user) {
@@ -87,7 +98,6 @@ public class UserControllerImpl implements UserController {
             updatedUser.getInfo().setId(userService.getUserInfo(user.getUsername()).getId());
         }
         userService.saveUser(updatedUser);
-
 
         UserDto result = userMapper.toUserDto(updatedUser);
         return isUpdate ? new ResponseEntity<>(result, HttpStatus.OK)

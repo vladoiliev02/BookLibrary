@@ -10,6 +10,8 @@ public interface UserService {
 
     User saveUser(User user);
 
+    User updateInfo(String username, UserInfo newInfo);
+
     void removeUser(String username);
 
     List<User> getAllUsers();
