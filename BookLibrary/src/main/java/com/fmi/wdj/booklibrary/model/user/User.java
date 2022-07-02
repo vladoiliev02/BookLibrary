@@ -22,7 +22,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -52,7 +51,6 @@ public class User implements UserDetails {
 
     @NotNull(message = "isEnabled must be specified")
     private Boolean isEnabled;
-
 
     @NotNull(message = "User role cannot be null.")
     @Enumerated(value = EnumType.STRING)

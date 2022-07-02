@@ -72,7 +72,6 @@ public class UserControllerImpl implements UserController {
     @PostMapping("/admin")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto addUser(@RequestBody @Valid UserDto user) {
-        // Add user already exists exception
         User newUser = userService.saveUser(userMapper.fromUserDto(user));
         return userMapper.toUserDto(newUser);
     }

@@ -22,6 +22,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+        if (userRepository.existsById(user.getUsername())) {
+            throw new IllegalArgumentException(String.format("User: %s already exists.", user.getUsername()));
+        }
+
         return userRepository.save(user);
     }
 
@@ -35,7 +39,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    // Consider throwing an exception instead of returning null
     @Override
     public Optional<User> getUserByUsername(String username) {
         return userRepository.findById(username);

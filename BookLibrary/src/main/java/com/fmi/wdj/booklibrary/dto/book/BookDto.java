@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -25,6 +26,6 @@ public class BookDto {
     @NotEmpty(message = "Author cannot be empty.")
     private String author;
 
-    @NotNull(message = "Genre cannot be null")
+    @NotNull(message = "Genre cannot be null.")
     private Set<Genre> genre;
 }
