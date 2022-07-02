@@ -1,4 +1,4 @@
-package com.fmi.wdj.booklibrary.dto;
+package com.fmi.wdj.booklibrary.dto.book;
 
 import com.fmi.wdj.booklibrary.model.book.Genre;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.fmi.wdj.booklibrary.repository;
+package com.fmi.wdj.booklibrary.repository.book;
 
 import com.fmi.wdj.booklibrary.model.book.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
