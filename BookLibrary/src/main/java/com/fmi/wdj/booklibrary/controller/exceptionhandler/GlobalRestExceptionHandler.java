@@ -18,8 +18,7 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {RuntimeException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "{ \"error\": \"Something went wrong, we are sorry\"," +
-                "\"message:\" " + ex.getMessage() + " }";
+        String bodyOfResponse = "{ \"error\": \"Something went wrong, we are sorry\" }";
         return handleExceptionInternal(ex, bodyOfResponse,
             new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
