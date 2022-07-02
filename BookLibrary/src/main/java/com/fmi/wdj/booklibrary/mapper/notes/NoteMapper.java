@@ -10,26 +10,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class NoteMapper {
 
     public NoteDataDto toNoteDto(NoteData noteData) {
         NoteDataDto result = new NoteDataDto();
-        Map<String, List<ResultNoteDto>> resultMap = new HashMap<>();
 
-        for (Note note : noteData.getNotes()) {
-            String isbn = note.getBook().getISBN();
+        if (noteData.getNotes() != null) {
+            Map<String, List<ResultNoteDto>> resultMap = new HashMap<>();
+            for (Note note : noteData.getNotes()) {
+                String isbn = note.getBook().getISBN();
 
-            if (!resultMap.containsKey(isbn)) {
-                resultMap.put(isbn, new ArrayList<>());
+                if (!resultMap.containsKey(isbn)) {
+                    resultMap.put(isbn, new ArrayList<>());
+                }
+
+                resultMap.get(isbn).add(toResultNoteDto(note));
             }
 
-            resultMap.get(isbn).add(toResultNoteDto(note));
+            result.setNotes(resultMap);
+        } else {
+            result.setNotes(Map.of());
         }
 
-        result.setNotes(resultMap);
         return result;
     }
 

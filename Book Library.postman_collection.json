@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4bfbf83a-326d-4c99-bb0f-5ad49d6bea59",
+		"_postman_id": "48c1e718-663e-4e90-a0c5-9240cab2ae9f",
 		"name": "Book Library",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20545610"
@@ -70,7 +70,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"buby\",\r\n    \"author\":\"Krisanka Ivanova\",\r\n    \"genre\": [\"rOmAnCe\", \"DRAMA\", \"TRAvel\", \"mystery\"],\r\n    \"isbn\": \"1594872630\"\r\n}",
+							"raw": "{\r\n    \"title\": \"book first\",\r\n    \"author\":\"author first\",\r\n    \"genre\": [\"rOmAnCe\", \"DRAMA\", \"TRAvel\", \"mystery\"],\r\n    \"isbn\": \"1594872630\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -180,7 +180,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/users/user1",
+							"raw": "localhost:8080/api/users/user2",
 							"host": [
 								"localhost"
 							],
@@ -188,7 +188,7 @@
 							"path": [
 								"api",
 								"users",
-								"user1"
+								"user2"
 							]
 						}
 					},
@@ -200,7 +200,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/users/info/user2",
+							"raw": "localhost:8080/api/users/info/user1",
 							"host": [
 								"localhost"
 							],
@@ -209,7 +209,7 @@
 								"api",
 								"users",
 								"info",
-								"user2"
+								"user1"
 							]
 						}
 					},
@@ -268,6 +268,35 @@
 								"api",
 								"users",
 								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Personal User Info",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@gamil.com\",\r\n    \"firstName\": \"user updated\",\r\n    \"lastName\": \"first updated\",\r\n    \"phoneNumber\": \"0885631568\",\r\n    \"country\": \"Bulgaria\",\r\n    \"city\": \"Sofia\",\r\n    \"street\": \"bul. knqz Al. Dondukov 60\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/users/info",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"info"
 							]
 						}
 					},
@@ -618,13 +647,13 @@
 		"type": "basic",
 		"basic": [
 			{
-				"key": "password",
-				"value": "1234",
+				"key": "username",
+				"value": "user1",
 				"type": "string"
 			},
 			{
-				"key": "username",
-				"value": "user1",
+				"key": "password",
+				"value": "1234",
 				"type": "string"
 			}
 		]
