@@ -50,7 +50,9 @@ public class UserControllerImpl implements UserController {
     @GetMapping("/{username}")
     public UserDto getUser(@PathVariable String username, Principal principal) {
         if (username.equals(principal.getName()) || userService.isAdmin(principal.getName())) {
-            User result = userService.getUserByUsername(username);
+            User result = userService.getUserByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException(
+                    String.format("User %s, not found.", username)));
             return userMapper.toUserDto(result);
         }
         throw new IllegalArgumentException("You can only see your own personal details.");

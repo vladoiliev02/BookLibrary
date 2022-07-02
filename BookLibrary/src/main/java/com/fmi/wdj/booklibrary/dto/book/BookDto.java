@@ -10,19 +10,19 @@ import java.util.Set;
 
 @Data
 public class BookDto {
-    @NotNull(message = "Title cannot be null")
-    @NotBlank(message = "Title cannot be blank")
-    @NotEmpty(message = "Title cannot be empty")
+    @NotNull(message = "ISBN cannot be null.")
+    @NotBlank(message = "ISBN cannot be blank.")
+    @NotEmpty(message = "ISBN cannot be empty.")
     private String ISBN;
 
-    @NotNull(message = "Title cannot be null")
-    @NotBlank(message = "Title cannot be blank")
-    @NotEmpty(message = "Title cannot be empty")
+    @NotNull(message = "Title cannot be null.")
+    @NotBlank(message = "Title cannot be blank.")
+    @NotEmpty(message = "Title cannot be empty.")
     private String title;
 
-    @NotNull(message = "Author cannot be null")
-    @NotBlank(message = "Author cannot be blank")
-    @NotEmpty(message = "Author cannot be empty")
+    @NotNull(message = "Author cannot be null.")
+    @NotBlank(message = "Author cannot be blank.")
+    @NotEmpty(message = "Author cannot be empty.")
     private String author;
 
     @NotNull(message = "Genre cannot be null")

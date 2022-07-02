@@ -20,9 +20,9 @@ public class UserAuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return Optional.ofNullable(userService.getUserByUsername(username))
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(
-                        "User: %s, was not found", username
-                )));
+        return userService.getUserByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException(String.format(
+                "User: %s, was not found", username
+            )));
     }
 }

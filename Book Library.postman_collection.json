@@ -9,26 +9,6 @@
 			"name": "BookEndpoint",
 			"item": [
 				{
-					"name": "Get All Books",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/books/all",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"books",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get Book By Criteria",
 					"request": {
 						"method": "GET",
@@ -57,6 +37,26 @@
 									"key": "genre",
 									"value": "mystery"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/books/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								"all"
 							]
 						}
 					},
@@ -229,7 +229,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/users/admin/",
+							"raw": "localhost:8080/api/users/admin",
 							"host": [
 								"localhost"
 							],
@@ -237,8 +237,7 @@
 							"path": [
 								"api",
 								"users",
-								"admin",
-								""
+								"admin"
 							]
 						}
 					},
@@ -259,7 +258,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/users/admin/",
+							"raw": "localhost:8080/api/users/admin",
 							"host": [
 								"localhost"
 							],
@@ -267,8 +266,7 @@
 							"path": [
 								"api",
 								"users",
-								"admin",
-								""
+								"admin"
 							]
 						}
 					},
@@ -290,6 +288,230 @@
 								"users",
 								"admin",
 								"user1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BookListEndpoint",
+			"item": [
+				{
+					"name": "Get All Book Lists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Book Lists For User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/username/user1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"username",
+								"user1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Book Lists With Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/listName/list1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"listName",
+								"list1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Book Lists By User With Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/user1/list1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"user1",
+								"list1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Book List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"listName\": \"list3\",\r\n    \"bookISBNs\": [\"1234567890\", \"1594872630\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/book-lists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book List",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"listName\": \"list2\",\r\n    \"bookISBNs\": [\"1234567890\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/book-lists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Book To List",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/add?bookListName=list2&isbn=1234567890",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"add"
+							],
+							"query": [
+								{
+									"key": "bookListName",
+									"value": "list2"
+								},
+								{
+									"key": "isbn",
+									"value": "1234567890"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Book From List",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/remove?bookListName=list1&isbn=1234567890",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "bookListName",
+									"value": "list1"
+								},
+								{
+									"key": "isbn",
+									"value": "1234567890"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book List By Name",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/book-lists/list2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book-lists",
+								"list2"
 							]
 						}
 					},
